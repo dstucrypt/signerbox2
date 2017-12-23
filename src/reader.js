@@ -23,7 +23,7 @@ function flattenJks(material) {
       return acc;
     }
     if (file.certs) {
-      acc = [...acc, ...file.certs.map((contents)=> ({format: 'x509', contents}))];
+      acc = [...acc, ...file.certs.map((contents)=> jkurwa.guess_parse(contents))];
     }
     if (file.key) {
       acc = [...acc, {format: 'jks-key', contents: file.key, name: file.name}];

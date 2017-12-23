@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 
 class Part extends Component {
   render() {
-    const {format, subject} = this.props;
+    const {format, subject, name} = this.props;
     if (subject) {
       return (<li>{format} {subject.title} {subject.commonName}</li>);
     }
-    if (format === 'IIT') {
-      return (<li>Encrypted Key</li>);
+    if (format === 'IIT' || format === 'jks-key') {
+      return (<li>Encrypted Key {name}</li>);
     }
     if (format) {
       return (<li>{format} ?</li>);
