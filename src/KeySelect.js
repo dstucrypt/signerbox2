@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-
+import read from './reader';
 
 export default class KeySelect extends Component {
+  constructor(props) {
+    super(props);
+    this.handleFile = this.handleFile.bind(this);
+  }
+
   handleFile(event) {
-    console.log('select file', event.target.files);
+    read(event.target.files)
+    .then((material)=> {
+      this.props.onAdd(material);
+    });
   }
 
   render() {
@@ -11,6 +19,7 @@ export default class KeySelect extends Component {
       Select private key:
       <input
         type="file"
+        multiple
         name="keyselect"
         value=""
         onChange={this.handleFile} />
