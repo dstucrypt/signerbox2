@@ -1,11 +1,11 @@
 import jkurwa from 'jkurwa';
 import {parse as parseJks} from 'jksreader';
-
-function isJks(file) {
-  return file.name.endsWith('.jks');
-}
+import {isSigning, isJks} from './utils';
 
 function readFile(file) {
+  if (file.contents) {
+    return Promise.resolve(file);
+  }
   const reader = new FileReader();
   return new Promise((resolve, reject)=> {
     reader.onload = (event)=> resolve({
@@ -17,16 +17,18 @@ function readFile(file) {
   });
 }
 
+function selectSigning(certs) {
+  return certs.filter(isSigning)[0] || null;
+}
+
 function flattenJks(material) {
   return material.reduce((acc, file)=> {
     if (!file) {
       return acc;
     }
-    if (file.certs) {
-      acc = [...acc, ...file.certs.map((contents)=> jkurwa.guess_parse(contents))];
-    }
-    if (file.key) {
-      acc = [...acc, {format: 'jks-key', contents: file.key, name: file.name}];
+    if (file.key && file.certs) {
+      const certs = file.certs.map((contents)=> jkurwa.guess_parse(contents));
+      acc = [...acc, ...certs, {format: 'jks-key', contents: file.key, name: file.name, match: selectSigning(certs)}];
     }
 
     return acc;
@@ -43,6 +45,9 @@ function flattenMaterial(material) {
     }
     if (file.format === 'IIT' || file.format === 'x509') {
       return [...acc, file];
+    }
+    if (file.format === 'privkeys') {
+      return [...acc, ...file.keys];
     }
 
     return acc;

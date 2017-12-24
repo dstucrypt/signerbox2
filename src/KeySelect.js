@@ -2,19 +2,20 @@ import React, { Component } from 'react';
 import read from './reader';
 import open from './opener';
 
-function isKey(file) {
-  return file && (file.format === 'IIT' || file.format === 'jks-key');
-}
+import {isKey, isOpen, isSigning} from './utils';
 
 export default class KeySelect extends Component {
   constructor(props) {
     super(props);
     this.state = {
       password: '',
+      error: null,
+      keyIdx: 0,
     };
     this.handleFile = this.handleFile.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
+    this.handleSelectKey = this.handleSelectKey.bind(this);
   }
 
   handleFile(event) {
@@ -26,10 +27,23 @@ export default class KeySelect extends Component {
 
   handleOpen(event) {
     event.preventDefault();
+    const {password, keyIdx} = this.state;
     const {material} = this.props;
-    const [key] = (material || []).filter(isKey);
-    const {password} = this.state;
-    console.log('open', open(key, password));
+    const key = (material || []).filter(isKey)[keyIdx || 0];
+    const contents = open(key, password);
+    if (contents) {
+      this.setState({error: null, password: ''});
+      read([{name: 'dat', ...key, contents}])
+      .then((more)=> {
+        this.props.onAdd([...material, ...more]);
+      });
+    } else {
+      this.setState({error: 'EPASSWORD'});
+    }
+  }
+
+  handleSelectKey(event) {
+    this.setState({keyIdx: Number(event.target.value)});
   }
 
   handlePassword(event) {
@@ -37,9 +51,18 @@ export default class KeySelect extends Component {
   }
 
   render() {
-    const {password} = this.state;
+    const {password, error} = this.state;
     const {material} = this.props;
     const keys = (material || []).filter(isKey);
+    const signKeys = (material || []).filter((file)=> isOpen(file) && isSigning(file.match));
+    const [firstKey] = signKeys;
+    if (signKeys.length > 1) {
+      return (<div>Signing keys found: {signKeys.length}</div>);
+    }
+    if (signKeys.length === 1) {
+      return (<div>Signing as {firstKey.match.subject.title} {firstKey.match.subject.commonName}</div>);
+    }
+
     return (<div>
       {!keys.length && (<div>
         Select private key:
@@ -50,10 +73,20 @@ export default class KeySelect extends Component {
           value=""
           onChange={this.handleFile} />
       </div>)}
-      {(keys.length === 1) && (<form onSubmit={this.handleOpen}>
+
+      {(keys.length > 0) && (<form onSubmit={this.handleOpen}>
+        {(keys.length > 1) && (<select onChange={this.handleSelectKey} >
+          {keys.map((key, idx)=> <option value={idx} key={idx}>
+            {(key.match && key.match.subject)
+              ? (key.match.subject.title || '') + ' ' + (key.match.subject.commonName || '')
+              : (key.name || idx)}
+          </option>)}
+        </select>)}
         Password:
         <input type="password" name="password" value={password} onChange={this.handlePassword} autoFocus />
+        {error}
       </form>)}
+
       <div>
         Found keys: {keys.length}
       </div>

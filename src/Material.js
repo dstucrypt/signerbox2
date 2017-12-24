@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
 
+import {canSign, canEnc, isCA} from './utils';
+
 class Part extends Component {
   render() {
-    const {format, subject, name} = this.props;
+    const {type, format, subject, extension, name, match} = this.props;
     if (subject) {
-      return (<li>{format} {subject.title} {subject.commonName}</li>);
+      return (<span>{format} {subject.title} {subject.commonName} {canSign(extension.keyUsage) && 'SIGN'} {canEnc(extension.keyUsage) && 'ENC'} {isCA(extension.keyUsage) && 'CA'}</span>);
+    }
+    if (format === 'jks-key' && match) {
+      return (<span>Encrypted Key {name} for <Part {...match} /></span>);
     }
     if (format === 'IIT' || format === 'jks-key') {
-      return (<li>Encrypted Key {name}</li>);
+      return (<span>Encrypted Key {name}</span>);
     }
     if (format) {
-      return (<li>{format} ?</li>);
+      return (<span>{format} ?</span>);
+    }
+    if (type === 'Priv' && match) {
+      return (<span>Private key for <Part {...match} /></span>);
+    }
+    if (type === 'Priv') {
+      return (<span>Private key without match</span>);
     }
 
     return null;
@@ -26,7 +37,7 @@ class Material extends Component {
     return (<div>
       Key Material and Certificates
       <ul>
-        {value.map((part, idx)=> <Part key={idx} {...part} />)}
+        {value.map((part, idx)=> <li key={idx}><Part {...part} /></li>)}
       </ul>
     </div>);
   }
