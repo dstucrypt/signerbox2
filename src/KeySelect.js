@@ -3,6 +3,7 @@ import read from './reader';
 import open from './opener';
 
 import {isKey, isOpen, isSigning} from './utils';
+import {sign} from './sign';
 
 export default class KeySelect extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export default class KeySelect extends Component {
     this.handlePassword = this.handlePassword.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleSelectKey = this.handleSelectKey.bind(this);
+    this.handleSign = this.handleSign.bind(this);
   }
 
   handleFile(event) {
@@ -50,6 +52,13 @@ export default class KeySelect extends Component {
     this.setState({password: event.target.value});
   }
 
+  handleSign(event) {
+    event.preventDefault();
+    const {material} = this.props;
+    const [key] = (material || []).filter((file)=> isOpen(file) && isSigning(file.match));
+    this.props.onSign(sign.bind(null, key, key.match));
+  }
+
   render() {
     const {password, error} = this.state;
     const {material} = this.props;
@@ -60,7 +69,11 @@ export default class KeySelect extends Component {
       return (<div>Signing keys found: {signKeys.length}</div>);
     }
     if (signKeys.length === 1) {
-      return (<div>Signing as {firstKey.match.subject.title} {firstKey.match.subject.commonName}</div>);
+      return (<div>
+        <button onClick={this.handleSign}>
+          Sign as {firstKey.match.subject.title} {firstKey.match.subject.commonName}
+        </button>
+      </div>);
     }
 
     return (<div>

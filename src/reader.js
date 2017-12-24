@@ -1,21 +1,7 @@
 import jkurwa from 'jkurwa';
 import {parse as parseJks} from 'jksreader';
 import {isSigning, isJks} from './utils';
-
-function readFile(file) {
-  if (file.contents) {
-    return Promise.resolve(file);
-  }
-  const reader = new FileReader();
-  return new Promise((resolve, reject)=> {
-    reader.onload = (event)=> resolve({
-      name: file.name,
-      contents: new Buffer(event.target.result),
-    });
-    reader.onerror = reject;
-    reader.readAsArrayBuffer(file)
-  });
-}
+import {readFile} from './filereader';
 
 function selectSigning(certs) {
   return certs.filter(isSigning)[0] || null;
