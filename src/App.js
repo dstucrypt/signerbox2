@@ -24,7 +24,7 @@ class App extends Component {
     return (
       <div className="App">
         {state.title}
-        <KeySelect onAdd={this.handleAdd} />
+        <KeySelect material={state.material} onAdd={this.handleAdd} />
         <Material value={state.material} />
       </div>
     );
