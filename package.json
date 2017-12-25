@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@just-boris/preact-scripts": "^0.8.3",
     "asn1.js": "github:muromec/asn1.js",
     "gost89": "^0.1.8",
     "jksreader": "file:../jksreader",
     "jkurwa": "^0.4.31",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-scripts": "1.0.17"
+    "preact": "^8.2.7",
+    "preact-compat": "^3.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -17,5 +17,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://dstucrypt.github.io/signerbox2"
+  "homepage": "https://dstucrypt.github.io/signerbox2",
+  "devDependencies": {
+    "react-dev-utils": "^4.2.1"
+  }
 }

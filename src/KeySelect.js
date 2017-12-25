@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import {h, Component} from 'preact';
 import read from './reader';
 import open from './opener';
 

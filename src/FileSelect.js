@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import {h, Component} from 'preact';
 import {readFile} from './filereader';
 
 class FileSelect extends Component {
