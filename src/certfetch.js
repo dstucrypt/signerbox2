@@ -46,9 +46,9 @@ function parse(resp) {
       return null;
   }
   rmsg = new models.Message(rmsg.info.slice(8));
-  return rmsg.info.certificate.map(function (certData) {
-    return new models.Certificate(certData);
-  });
+  return rmsg.info.certificate.map((certData)=> (
+    new models.Certificate(certData, true)
+  ));
 }
 
 function certfetch(keys) {

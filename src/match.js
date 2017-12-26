@@ -1,3 +1,4 @@
+import {isCA} from './utils';
 
 function findMatch(key, other) {
   if (key.format === 'jks-key' && key.match) {
@@ -13,7 +14,11 @@ function findMatch(key, other) {
     if (file.format !== 'x509') {
       return acc;
     }
+    if (isCA(file.extension.keyUsage) || !file.extension.ipn) {
+      return acc;
+    }
 
+    file.pubkey_unpack && file.pubkey_unpack();
     if (key.pub_match(file.pubkey)) {
       return file;
     }
