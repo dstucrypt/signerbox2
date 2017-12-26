@@ -6,6 +6,14 @@ import Material from './Material';
 
 import {makeMatches} from './match';
 import save from './save';
+import certfetch from './certfetch';
+
+function fetchMissing(material) {
+  const [key1, key2] = material.filter((file)=> (
+    (file.type === 'Priv') && !file.match
+  ));
+  return key1 ? certfetch([key1, key2]) : Promise.reject();
+}
 
 const handler = {file: null, material: []};
 
@@ -22,6 +30,13 @@ class App extends Component {
 
   handleAdd(material) {
     state.material = makeMatches(material);
+    fetchMissing(state.material)
+    .then((certificates)=> {
+      if (certificates) {
+        state.material = makeMatches([...state.material, ...certificates]);
+      }
+    })
+    .catch(()=> null);
   }
 
   handleFile(file) {
