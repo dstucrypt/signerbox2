@@ -6,7 +6,7 @@
     "@just-boris/preact-scripts": "^0.8.3",
     "asn1.js": "github:muromec/asn1.js",
     "gost89": "^0.1.8",
-    "jksreader": "file:../jksreader",
+    "jksreader": "^1.0.0",
     "jkurwa": "^0.4.32",
     "preact": "^8.2.7",
     "preact-compat": "^3.17.0"
