@@ -52,7 +52,7 @@ function parse(resp) {
 }
 
 function certfetch(keys) {
-  return post('https://muromec.org.ua/api/certfetch?from=masterkey.ua', query(keys))
+  return post('https://muromec.org.ua/api/certfetch?from=masterkey.ua/services/cmp/', query(keys))
   .then(parse)
   .then((certs)=> certs || Promise.reject());
 }
