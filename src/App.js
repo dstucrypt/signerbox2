@@ -44,7 +44,8 @@ class App extends Component {
   }
 
   handleSign(signFn) {
-    save(signFn(state.file.contents), state.file.name + '.p7s');
+    signFn(state.file.contents)
+      .then((signedContents)=> save(signedContents, state.file.name + '.p7s'));
   }
 
   render() {

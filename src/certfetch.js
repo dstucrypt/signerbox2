@@ -1,13 +1,6 @@
 import {models} from 'jkurwa';
 import gost89 from 'gost89';
-
-function post(queryUrL, data, cb) {
-  return fetch(queryUrL, {body: data, method: 'POST', mode: 'cors'})
-  .then((res)=> res.arrayBuffer())
-  .then((res)=> (
-    new Buffer(new Uint8Array(res))
-  ));
-}
+import post from './post';
 
 function query(keys) {
   const algo = gost89.compat.algos();
