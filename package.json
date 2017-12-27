@@ -5,7 +5,7 @@
   "dependencies": {
     "asn1.js": "github:muromec/asn1.js",
     "gost89": "^0.1.8",
-    "jksreader": "file:../jksreader",
+    "jksreader": "^1.0.0",
     "jkurwa": "^0.4.32",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
