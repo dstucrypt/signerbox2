@@ -1,6 +1,27 @@
 import {h, Component} from 'preact';
 
 import {canSign, canEnc, isCA} from './utils';
+import save from './save';
+
+class Saveable extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSave = this.handleSave.bind(this);
+  }
+
+  handleSave(event) {
+    event.preventDefault();
+    const {file} = this.props;
+    save(file._raw || file.to_asn1(), file.name || (file.type || file.format) + '.dat');
+  }
+
+  render() {
+    const {file, children} = this.props;
+    return (file.to_asn1 || file._raw)
+      ? (<span>{children} (<a href="" onClick={this.handleSave}>save file</a>)</span>)
+      : children;
+  }
+}
 
 class Part extends Component {
   render() {
@@ -37,7 +58,9 @@ class Material extends Component {
     return (<div>
       Key Material and Certificates
       <ul>
-        {value.map((part, idx)=> <li key={idx}><Part {...part} /></li>)}
+        {value.map((part, idx)=>
+          <li key={idx}><Saveable file={part}><Part {...part} /></Saveable></li>
+        )}
       </ul>
     </div>);
   }

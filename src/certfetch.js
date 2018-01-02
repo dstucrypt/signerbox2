@@ -1,11 +1,12 @@
 import {models} from 'jkurwa';
 import gost89 from 'gost89';
 import post from './post';
+import raceToSuccess from './race';
 
 function query(keys) {
   const algo = gost89.compat.algos();
   const keyids = keys.map(function (priv) {
-    return priv.pub().keyid(algo);
+    return priv && priv.pub().keyid(algo);
   });
 
   /* black magic here. blame eeeeeet */
@@ -44,10 +45,23 @@ function parse(resp) {
   ));
 }
 
-function certfetch(keys) {
-  return post('https://muromec.org.ua/api/certfetch?from=masterkey.ua/services/cmp/', query(keys))
-  .then(parse)
-  .then((certs)=> certs || Promise.reject());
+function fetch(payload, url) {
+  return post('https://muromec.org.ua/api/certfetch?from=' + url, payload);
 }
 
-module.exports = certfetch;
+const URLS = [
+  'masterkey.ua/services/cmp/',
+  'ca.informjust.ua/services/cmp/',
+];
+
+
+export default function certfetch(keys) {
+  const payload = query(keys);
+  return raceToSuccess(
+    URLS.map(
+      (url)=> fetch(payload, url)
+        .then(parse)
+        .then((certs)=> certs || Promise.reject())
+    )
+  );
+}

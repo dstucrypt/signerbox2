@@ -15,7 +15,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-server": "uwsgi --plugin python3 --http-socket 127.0.0.1:8080 -w ca_proxy"
   },
   "homepage": "https://dstucrypt.github.io/signerbox2",
   "devDependencies": {
