@@ -1,7 +1,7 @@
 import http.client
 from cgi import parse_qs
 
-WHITELIST = ['masterkey.ua', 'tsp.masterkey.ua']
+WHITELIST = ['masterkey.ua', 'tsp.masterkey.ua', 'ca.informjust.ua']
 
 def application(environ, start_response):
   try:
