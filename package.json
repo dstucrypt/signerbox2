@@ -7,7 +7,7 @@
     "asn1.js": "github:muromec/asn1.js",
     "gost89": "^0.1.8",
     "jksreader": "^1.0.0",
-    "jkurwa": "^0.4.33",
+    "jkurwa": "^0.4.34",
     "preact": "^8.2.7",
     "preact-compat": "^3.17.0"
   },
