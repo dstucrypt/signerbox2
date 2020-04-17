@@ -23,7 +23,7 @@ function makeTsp(cert, hash) {
     },
   }, 'der');
 
-  return post('https://muromec.org.ua/api/certfetch?from=' + cert.extension.tsp, tsp)
+  return post('https://cors-anywhere.herokuapp.com/' + cert.extension.tsp, tsp)
   .then(parse)
 
 }

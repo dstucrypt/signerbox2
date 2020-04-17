@@ -46,12 +46,12 @@ function parse(resp) {
 }
 
 function fetch(payload, url) {
-  return post('https://muromec.org.ua/api/certfetch?from=' + url, payload);
+  return post('https://cors-anywhere.herokuapp.com/' + url, payload);
 }
 
 const URLS = [
-  'masterkey.ua/services/cmp/',
-  'ca.informjust.ua/services/cmp/',
+  'http://masterkey.ua/services/cmp/',
+  'https://ca.informjust.ua/services/cmp/',
 ];
 
 
