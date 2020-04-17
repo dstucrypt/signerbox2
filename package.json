@@ -6,10 +6,10 @@
     "asn1.js": "github:muromec/asn1.js",
     "gost89": "^0.1.8",
     "jksreader": "^1.0.0",
-    "jkurwa": "^0.4.34",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-scripts": "^1.1.4"
+    "jkurwa": "^1.2.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "^3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,5 +23,17 @@
   "homepage": "https://dstucrypt.github.io/signerbox2",
   "devDependencies": {
     "gh-pages": "^2.2.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
