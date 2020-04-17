@@ -18,7 +18,7 @@ class Saveable extends Component {
   render() {
     const {file, children} = this.props;
     return (file.to_asn1 || file._raw)
-      ? (<span>{children} (<a role="link" onClick={this.handleSave}>save file</a>)</span>)
+      ? (<span>{children} (<button role="link" onClick={this.handleSave}>save file</button>)</span>)
       : children;
   }
 }

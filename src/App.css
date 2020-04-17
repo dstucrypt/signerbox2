@@ -2,11 +2,16 @@
   text-align: center;
 }
 
-.App a[role="link"] {
+.App button[role="link"] {
   color: blue;
   cursor: pointer;
+  -webkit-appearance: none;
+  background: none;
+  border: navajowhite;
+  display: inline;
+  font-size: inherit;
 }
 
-.App a[role="link"]:hover {
+.App button[role="link"]:hover {
   text-decoration: underline;
 }
