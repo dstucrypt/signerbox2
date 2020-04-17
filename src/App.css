@@ -1,3 +1,12 @@
 .App {
   text-align: center;
 }
+
+.App a[role="link"] {
+  color: blue;
+  cursor: pointer;
+}
+
+.App a[role="link"]:hover {
+  text-decoration: underline;
+}
