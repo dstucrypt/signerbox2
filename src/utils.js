@@ -26,7 +26,7 @@ function isCA(data) {
 }
 
 function isKey(file) {
-  return file && (file.format === 'IIT' || file.format === 'jks-key');
+  return file && (file.format === 'IIT' || file.format === 'jks-key' || file.format === 'PBES2');
 }
 
 function isOpen(file) {

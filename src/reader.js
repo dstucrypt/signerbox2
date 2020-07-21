@@ -29,7 +29,7 @@ function flattenMaterial(material) {
     if (file.material) {
       return [...acc, ...flattenJks(file.material)];
     }
-    if (file.format === 'IIT' || file.format === 'x509') {
+    if (file.format === 'IIT' || file.format === 'x509' || file.format === 'PBES2') {
       return [...acc, file];
     }
     if (file.format === 'privkeys') {

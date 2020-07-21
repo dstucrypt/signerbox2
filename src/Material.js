@@ -32,7 +32,7 @@ class Part extends Component {
     if (format === 'jks-key' && match) {
       return (<span>Encrypted Key {name} for <Part {...match} /></span>);
     }
-    if (format === 'IIT' || format === 'jks-key') {
+    if (format === 'IIT' || format === 'jks-key' || format === 'PBES2') {
       return (<span>Encrypted Key {name}</span>);
     }
     if (format) {
