@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/signerbox2/static/css/main.dd118bcb.chunk.css",
-    "main.js": "/signerbox2/static/js/main.b9725ec1.chunk.js",
-    "main.js.map": "/signerbox2/static/js/main.b9725ec1.chunk.js.map",
+    "main.js": "/signerbox2/static/js/main.a8c6cb69.chunk.js",
+    "main.js.map": "/signerbox2/static/js/main.a8c6cb69.chunk.js.map",
     "runtime-main.js": "/signerbox2/static/js/runtime-main.95dd0ea8.js",
     "runtime-main.js.map": "/signerbox2/static/js/runtime-main.95dd0ea8.js.map",
-    "static/js/2.c2e8d448.chunk.js": "/signerbox2/static/js/2.c2e8d448.chunk.js",
-    "static/js/2.c2e8d448.chunk.js.map": "/signerbox2/static/js/2.c2e8d448.chunk.js.map",
+    "static/js/2.a4ba562d.chunk.js": "/signerbox2/static/js/2.a4ba562d.chunk.js",
+    "static/js/2.a4ba562d.chunk.js.map": "/signerbox2/static/js/2.a4ba562d.chunk.js.map",
     "index.html": "/signerbox2/index.html",
-    "precache-manifest.bcbf5a99727117f6df7b80d6b8e81366.js": "/signerbox2/precache-manifest.bcbf5a99727117f6df7b80d6b8e81366.js",
+    "precache-manifest.2750d554117b8f40aa8be22db775cadf.js": "/signerbox2/precache-manifest.2750d554117b8f40aa8be22db775cadf.js",
     "service-worker.js": "/signerbox2/service-worker.js",
     "static/css/main.dd118bcb.chunk.css.map": "/signerbox2/static/css/main.dd118bcb.chunk.css.map",
-    "static/js/2.c2e8d448.chunk.js.LICENSE.txt": "/signerbox2/static/js/2.c2e8d448.chunk.js.LICENSE.txt"
+    "static/js/2.a4ba562d.chunk.js.LICENSE.txt": "/signerbox2/static/js/2.a4ba562d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.95dd0ea8.js",
-    "static/js/2.c2e8d448.chunk.js",
+    "static/js/2.a4ba562d.chunk.js",
     "static/css/main.dd118bcb.chunk.css",
-    "static/js/main.b9725ec1.chunk.js"
+    "static/js/main.a8c6cb69.chunk.js"
   ]
 }
