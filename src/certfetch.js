@@ -52,6 +52,7 @@ function fetch(payload, url) {
 const URLS = [
   'http://masterkey.ua/services/cmp/',
   'https://ca.informjust.ua/services/cmp/',
+  'http://acskidd.gov.ua/services/cmp/'
 ];
 
 
