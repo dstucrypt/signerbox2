@@ -13,7 +13,7 @@ function flattenJks(material) {
       return acc;
     }
     if (file.key && file.certs) {
-      const certs = file.certs.map((contents)=> jkurwa.guess_parse(contents));
+      const certs = file.certs.map((contents)=> jkurwa.Certificate.from_asn1(contents));
       acc = [...acc, ...certs, {format: 'jks-key', contents: file.key, name: file.name, match: selectSigning(certs)}];
     }
 
@@ -25,6 +25,9 @@ function flattenMaterial(material) {
   return material.reduce((acc, file)=> {
     if (!file) {
       return acc;
+    }
+    if (Array.isArray(file)) {
+      return [...acc, ...flattenMaterial(file)];
     }
     if (file.material) {
       return [...acc, ...flattenJks(file.material)];
@@ -45,9 +48,9 @@ function read(files) {
   return Promise.all(
     Array.prototype.map.call(files, (file)=> {
       return readFile(file)
-        .then((file)=> isJks(file)
-          ? ({...file, ...parseJks(file.contents)})
-          : jkurwa.guess_parse(file.contents)
+        .then(file=> isJks(file)
+            ? ({...file, ...parseJks(file.contents)})
+            : jkurwa.guess_parse(file.contents)
         )
         .catch((err)=> console.error(err));
     })
